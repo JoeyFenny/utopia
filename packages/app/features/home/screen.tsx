@@ -12,7 +12,7 @@ export function HomeScreen() {
   const handleLogin = () => {
     if (inputValue === '17864960562') {
       setShowError(false)
-      push('/dashboard/')  
+      push('/verify/')  
     } else {
       setShowError(true)
     }

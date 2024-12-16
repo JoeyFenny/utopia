@@ -3,7 +3,7 @@ import { View } from 'app/design/view'
 import { Platform, Pressable } from 'react-native'
 import { useRouter } from 'solito/router'
 
-export function DashboardScreen() {
+export function VerifyScreen() {
   const { back } = useRouter()
 
   return (
