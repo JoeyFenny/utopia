@@ -2,7 +2,7 @@ import { H1, Text } from 'app/design/typography'
 import { View } from 'app/design/view'
 import { Image, Platform, Dimensions, Pressable, TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const ONBOARDING_STEPS = [
   {
@@ -26,18 +26,23 @@ const SWIPE_THRESHOLD = 50
 
 export function OnboardingScreen() {
   const screenHeight = Dimensions.get('window').height
+  const { push } = useRouter()
   const [currentStep, setCurrentStep] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
-  
+
+  useEffect(() => {
+    console.log('Current step:', currentStep)
+  }, [currentStep])
+
   const contentContainerStyle = Platform.select({
-    web: { height: screenHeight * 0.3 },
+    web: { minHeight: 200 },
     default: { height: screenHeight * 0.4 }
-  }) as { height: number }
+  })
 
   const imageContainerStyle = Platform.select({
-    web: { height: screenHeight * 0.7 },
+    web: { height: screenHeight - 200 },
     default: { height: screenHeight * 0.6 }
-  }) as { height: number }
+  })
 
   const handleNext = () => {
     if (currentStep < ONBOARDING_STEPS.length - 1) {
@@ -86,7 +91,7 @@ export function OnboardingScreen() {
       </View>
 
       {/* Content container */}
-      <View className="bg-black px-8 pt-8 pb-12 justify-between" style={contentContainerStyle}>
+      <View className="bg-black px-8 pt-8 pb-12 flex justify-between" style={contentContainerStyle}>
         <View>
           <H1 className="text-white text-4xl font-light mb-4">
             {ONBOARDING_STEPS[currentStep].title}
@@ -96,16 +101,58 @@ export function OnboardingScreen() {
           </Text>
         </View>
 
-        {/* Pagination dots */}
-        <View className="flex-row justify-center space-x-2">
-          {ONBOARDING_STEPS.map((_, index) => (
-            <Pressable key={index} onPress={() => setCurrentStep(index)}>
-              <View 
-                className={`w-2 h-2 rounded-full ${index === currentStep ? 'bg-[#FED700]' : 'bg-[#333333]'}`}
-              />
-            </Pressable>
-          ))}
-        </View>
+        {currentStep === ONBOARDING_STEPS.length - 1 && (
+          <View style={Platform.select({
+            web: { 
+              width: '100%',
+              alignItems: 'center',
+              marginTop: 32
+            },
+            default: {
+              width: '100%',
+              alignItems: 'center',
+              marginTop: 32
+            }
+          })}>
+            <View style={Platform.select({
+              web: {
+                backgroundColor: 'white',
+                borderRadius: 24,
+                width: 200,
+                padding: 12,
+                cursor: 'pointer'
+              },
+              default: {
+                backgroundColor: 'white',
+                borderRadius: 24,
+                width: '100%',
+                padding: 12
+              }
+            })}>
+              <TouchableOpacity onPress={() => push('/')}>
+                <Text style={{
+                  color: 'black',
+                  textAlign: 'center',
+                  fontWeight: '500'
+                }}>
+                  Continue
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {currentStep !== ONBOARDING_STEPS.length - 1 && (
+          <View className="flex-row justify-center space-x-2 mt-8">
+            {ONBOARDING_STEPS.map((_, index) => (
+              <Pressable key={index} onPress={() => setCurrentStep(index)}>
+                <View 
+                  className={`w-2 h-2 rounded-full ${index === currentStep ? 'bg-[#FED700]' : 'bg-[#333333]'}`}
+                />
+              </Pressable>
+            ))}
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   )
