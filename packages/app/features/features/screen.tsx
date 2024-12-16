@@ -1,5 +1,6 @@
 import { H1, Text } from 'app/design/typography'
 import { View } from 'app/design/view'
+import { Pressable } from 'react-native'
 import { useRouter } from 'solito/router'
 
 export function FeaturesScreen() {
@@ -8,9 +9,11 @@ export function FeaturesScreen() {
   return (
     <View className="flex-1 bg-black">
       <View className="p-4 pt-12">
-        <View className="w-8 h-8 rounded-full bg-[#222] items-center justify-center" onPress={back}>
-          <Text className="text-white">&larr;</Text>
-        </View>
+        <Pressable onPress={back}>
+          <View className="w-8 h-8 rounded-full bg-[#222] items-center justify-center">
+            <Text className="text-white">&larr;</Text>
+          </View>
+        </Pressable>
       </View>
       
       <View className="p-4">
