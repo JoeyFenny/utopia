@@ -8,13 +8,18 @@ export function OnboardingScreen() {
   
   const contentContainerStyle = Platform.select({
     web: { height: 300 },
-    default: { flex: 1 }
+    default: { height: screenHeight * 0.4 }
+  })
+
+  const imageContainerStyle = Platform.select({
+    web: { height: screenHeight * 0.6 },
+    default: { height: screenHeight * 0.6 }
   })
 
   return (
     <View className="flex-1 bg-black">
-      {/* Image container - takes up roughly 70% of the screen */}
-      <View style={{ height: screenHeight * 0.7 }}>
+      {/* Image container */}
+      <View style={imageContainerStyle}>
         <Image
           source={{ uri: 'https://images.unsplash.com/photo-1492724724894-7464c27d0ceb?q=80&w=1000' }}
           className="w-full h-full"
@@ -23,7 +28,7 @@ export function OnboardingScreen() {
         />
       </View>
 
-      {/* Content container - fixed height on web, flex on mobile */}
+      {/* Content container */}
       <View className="bg-black px-8 pt-8 pb-12 justify-between" style={contentContainerStyle}>
         <View>
           <H1 className="text-white text-4xl font-light mb-4">
