@@ -25,12 +25,12 @@ export function OnboardingScreen() {
   const [touchStart, setTouchStart] = useState(0)
   
   const contentContainerStyle = Platform.select({
-    web: { height: 300 },
+    web: { height: '30vh' },
     default: { height: screenHeight * 0.4 }
   })
 
   const imageContainerStyle = Platform.select({
-    web: { height: screenHeight * 0.6 },
+    web: { height: '70vh' },
     default: { height: screenHeight * 0.6 }
   })
 
