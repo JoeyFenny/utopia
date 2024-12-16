@@ -15,14 +15,16 @@ export function VerifyScreen() {
   ]
 
   const handleChange = (text: string, index: number) => {
-    if (!/^[0-9]*$/.test(text)) return
+    // Take only the last character if more than one digit is entered
+    const singleDigit = text.slice(-1)
+    if (!/^[0-9]*$/.test(singleDigit)) return
 
     const newCode = [...code]
-    newCode[index] = text
+    newCode[index] = singleDigit
     setCode(newCode)
 
     // Move to next input if there's a value
-    if (text.length === 1 && index < 3) {
+    if (singleDigit && index < 3) {
       inputRefs[index + 1]?.current?.focus()
     }
   }
@@ -55,7 +57,7 @@ export function VerifyScreen() {
               <input
                 key={i}
                 ref={inputRefs[i]}
-                className="w-14 h-14 rounded-lg border border-[#333] text-center text-white text-xl bg-transparent outline-none"
+                className="w-14 h-14 rounded-lg border border-[#333] text-center text-white text-xl bg-transparent outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 maxLength={1}
                 type="number"
                 pattern="[0-9]*"
