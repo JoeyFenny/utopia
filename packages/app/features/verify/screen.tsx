@@ -8,10 +8,10 @@ export function VerifyScreen() {
   const { back } = useRouter()
   const [code, setCode] = useState(['', '', '', ''])
   const inputRefs = [
-    useRef<TextInput | HTMLInputElement | null>(null),
-    useRef<TextInput | HTMLInputElement | null>(null),
-    useRef<TextInput | HTMLInputElement | null>(null),
-    useRef<TextInput | HTMLInputElement | null>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
   ]
 
   const handleChange = (text: string, index: number) => {
@@ -25,14 +25,22 @@ export function VerifyScreen() {
 
     // Move to next input if there's a value
     if (singleDigit && index < 3) {
-      inputRefs[index + 1]?.current?.focus()
+      if (Platform.OS === 'web') {
+        (inputRefs[index + 1].current as unknown as HTMLInputElement)?.focus()
+      } else {
+        inputRefs[index + 1].current?.focus()
+      }
     }
   }
 
   const handleKeyPress = (e: any, index: number) => {
     // Move to previous input on backspace if current input is empty
     if (e.nativeEvent.key === 'Backspace' && !code[index] && index > 0) {
-      inputRefs[index - 1]?.current?.focus()
+      if (Platform.OS === 'web') {
+        (inputRefs[index - 1].current as unknown as HTMLInputElement)?.focus()
+      } else {
+        inputRefs[index - 1].current?.focus()
+      }
     }
   }
 
@@ -56,7 +64,11 @@ export function VerifyScreen() {
             Platform.OS === 'web' ? (
               <input
                 key={i}
-                ref={inputRefs[i]}
+                ref={(el) => {
+                  if (el) {
+                    (inputRefs[i].current as any) = el;
+                  }
+                }}
                 className="w-14 h-14 rounded-lg border border-[#333] text-center text-white text-xl bg-transparent outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 maxLength={1}
                 type="number"
