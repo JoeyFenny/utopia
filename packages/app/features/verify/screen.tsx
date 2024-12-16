@@ -5,8 +5,9 @@ import { useRouter } from 'solito/router'
 import { useRef, useState } from 'react'
 
 export function VerifyScreen() {
-  const { back } = useRouter()
+  const { back, push } = useRouter()
   const [code, setCode] = useState(['', '', '', ''])
+  const [error, setError] = useState(false)
   const inputRefs = [
     useRef<TextInput>(null),
     useRef<TextInput>(null),
@@ -15,6 +16,7 @@ export function VerifyScreen() {
   ]
 
   const handleChange = (text: string, index: number) => {
+    setError(false)
     // Take only the last character if more than one digit is entered
     const singleDigit = text.slice(-1)
     if (!/^[0-9]*$/.test(singleDigit)) return
@@ -29,6 +31,15 @@ export function VerifyScreen() {
         (inputRefs[index + 1].current as unknown as HTMLInputElement)?.focus()
       } else {
         inputRefs[index + 1].current?.focus()
+      }
+    } else if (index === 3) {
+      // Validate immediately when the 4th digit is entered
+      const finalCode = newCode.join('')
+      if (finalCode === '1234') {
+        setError(false)
+        push('/features')
+      } else {
+        setError(true)
       }
     }
   }
@@ -93,11 +104,19 @@ export function VerifyScreen() {
           ))}
         </View>
 
-        <View className="flex-row items-center space-x-1">
-          <Text className="text-[#666]">Didn't receive a code?</Text>
-          <Pressable>
-            <Text className="text-white">Resend Code</Text>
-          </Pressable>
+        <View className="mt-8">
+          <View className="flex-row items-center space-x-1">
+            <Text className="text-[#666]">Didn't receive a code?</Text>
+            <Pressable>
+              <Text className="text-white">Resend Code</Text>
+            </Pressable>
+          </View>
+          
+          {error && (
+            <Text className="text-red-500 mt-2">
+              Wrong code
+            </Text>
+          )}
         </View>
       </View>
     </View>
