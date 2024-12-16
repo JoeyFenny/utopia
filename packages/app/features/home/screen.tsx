@@ -1,8 +1,23 @@
 import { H1, Text } from 'app/design/typography'
 import { View } from 'app/design/view'
-import { Platform, TextInput } from 'react-native'
+import { Platform, TextInput, Pressable } from 'react-native'
+import { useState } from 'react'
+import { useRouter } from 'solito/router'
 
 export function HomeScreen() {
+  const [inputValue, setInputValue] = useState('')
+  const [showError, setShowError] = useState(false)
+  const { push } = useRouter()
+
+  const handleLogin = () => {
+    if (inputValue === '17864960562') {
+      setShowError(false)
+      push('/dashboard')
+    } else {
+      setShowError(true)
+    }
+  }
+
   return (
     <View className="flex-1 items-center justify-center p-3 bg-black">
       <H1 className="text-white">Utopia</H1>
@@ -35,6 +50,8 @@ export function HomeScreen() {
         }}
         placeholder="Email or phone number"
         placeholderTextColor="#666"
+        value={inputValue}
+        onChangeText={setInputValue}
       />
       <View
         style={{
@@ -45,7 +62,7 @@ export function HomeScreen() {
           }),
         }}
       />
-      <View
+      <Pressable
         className="w-full bg-white rounded-[24px] mb-4 items-center justify-center"
         style={{
           paddingHorizontal: 16,
@@ -65,13 +82,28 @@ export function HomeScreen() {
               elevation: 4,
             },
             web: {
-              width: 400
+              width: 400,
+              borderRadius: 24
             },
           }),
         }}
-      >
-        <Text className="text-black font-medium text-base">Log in</Text>
-      </View>
+        onPress={handleLogin}>
+        <Text className="text-black font-medium text-base text-center">Log in</Text>
+      </Pressable>
+      {showError && (
+        <>
+          <View
+            style={{
+              height: Platform.select({
+                ios: 0,
+                android: 0,
+                web: 10,
+              }),
+            }}
+          />
+          <Text className="text-red-500 text-sm mb-4">Invalid login credentials</Text>
+        </>
+      )}
       <View
         style={{
           height: Platform.select({
