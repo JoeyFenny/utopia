@@ -37,7 +37,7 @@ export function VerifyScreen() {
       const finalCode = newCode.join('')
       if (finalCode === '1234') {
         setError(false)
-        push('/features')
+        push('/onboarding')
       } else {
         setError(true)
       }

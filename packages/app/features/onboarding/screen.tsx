@@ -3,7 +3,7 @@ import { View } from 'app/design/view'
 import { Pressable } from 'react-native'
 import { useRouter } from 'solito/router'
 
-export function FeaturesScreen() {
+export function OnboardingScreen() {
   const { back } = useRouter()
 
   return (
@@ -18,11 +18,11 @@ export function FeaturesScreen() {
       
       <View className="p-4">
         <H1 className="text-white text-3xl font-light mb-8">
-          Features
+          Onboarding
         </H1>
         
         <Text className="text-white">
-          Welcome to the features screen!
+          Welcome to the onboarding screen!
         </Text>
       </View>
     </View>
