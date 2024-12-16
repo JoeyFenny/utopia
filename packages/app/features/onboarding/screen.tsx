@@ -30,10 +30,6 @@ export function OnboardingScreen() {
   const [currentStep, setCurrentStep] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
 
-  useEffect(() => {
-    console.log('Current step:', currentStep)
-  }, [currentStep])
-
   const contentContainerStyle = Platform.select({
     web: { minHeight: 200 },
     default: { height: screenHeight * 0.4 }
