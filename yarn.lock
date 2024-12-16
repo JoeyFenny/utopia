@@ -5745,6 +5745,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-linear-gradient@npm:^14.0.1":
+  version: 14.0.1
+  resolution: "expo-linear-gradient@npm:14.0.1"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 8498a6d9888652bcde690f738fc3e00ec7c33ca251275135be73cecd0f7960c635b0c87aa4f73e681c907edcd52764d8a6b29fea3386ee9a74e59ea617d7e228
+  languageName: node
+  linkType: hard
+
 "expo-linking@npm:~5.0.2":
   version: 5.0.2
   resolution: "expo-linking@npm:5.0.2"
@@ -10113,6 +10124,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-linear-gradient@npm:^2.8.3":
+  version: 2.8.3
+  resolution: "react-native-linear-gradient@npm:2.8.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: f980d324e551bbc475c6406bdc5250a08242020cbe653412fa169bbdf51e28a502e225de105b4d696d6a1a1b733d44782469020f4936d8b3ce0e2c78e51cf58f
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:~3.3.0":
   version: 3.3.0
   resolution: "react-native-reanimated@npm:3.3.0"
@@ -10994,8 +11015,10 @@ __metadata:
     "@types/react": ^18.2.21
     "@types/react-native": ^0.72.2
     eslint: ^8.21.0
+    expo-linear-gradient: ^14.0.1
     prettier: ^3.0.3
     prettier-plugin-tailwindcss: ^0.5.4
+    react-native-linear-gradient: ^2.8.3
     turbo: ^1.4.2
     typescript: ^5.2.2
   languageName: unknown

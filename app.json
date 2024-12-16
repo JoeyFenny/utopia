@@ -6,6 +6,12 @@
       }
     },
     "owner": "joeyfenny",
-    "slug": "utopia"
+    "slug": "utopia",
+    "android": {
+      "package": "com.joeyfenny.utopia"
+    },
+    "ios": {
+      "bundleIdentifier": "com.joeyfenny.utopia"
+    }
   }
 }
