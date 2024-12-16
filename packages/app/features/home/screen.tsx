@@ -31,7 +31,7 @@ export function HomeScreen() {
         }}
       />
       <TextInput
-        className="w-full mb-4 text-black p-4 rounded-lg"
+        className="w-full mb-4 rounded-lg"
         style={{
           borderWidth: 1,
           borderColor: '#666',
@@ -39,6 +39,7 @@ export function HomeScreen() {
           paddingVertical: 8,
           borderRadius: 24,
           fontSize: 16,
+          color: '#666',
           ...Platform.select({
             ios: {
               width: "100%"
