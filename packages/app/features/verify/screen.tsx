@@ -1,6 +1,6 @@
 import { H1, Text } from 'app/design/typography'
 import { View } from 'app/design/view'
-import { Pressable, TextInput } from 'react-native'
+import { Pressable, TextInput, Platform } from 'react-native'
 import { useRouter } from 'solito/router'
 import { useRef, useState } from 'react'
 
@@ -8,10 +8,10 @@ export function VerifyScreen() {
   const { back } = useRouter()
   const [code, setCode] = useState(['', '', '', ''])
   const inputRefs = [
-    useRef<TextInput | null>(null),
-    useRef<TextInput | null>(null),
-    useRef<TextInput | null>(null),
-    useRef<TextInput | null>(null),
+    useRef<TextInput | HTMLInputElement | null>(null),
+    useRef<TextInput | HTMLInputElement | null>(null),
+    useRef<TextInput | HTMLInputElement | null>(null),
+    useRef<TextInput | HTMLInputElement | null>(null),
   ]
 
   const handleChange = (text: string, index: number) => {
@@ -51,16 +51,31 @@ export function VerifyScreen() {
         
         <View className="flex-row space-x-2 mb-4">
           {[0, 1, 2, 3].map((i) => (
-            <TextInput
-              key={i}
-              ref={inputRefs[i]}
-              className="w-14 h-14 rounded-lg border border-[#333] text-center text-white text-xl"
-              maxLength={1}
-              keyboardType="number-pad"
-              value={code[i]}
-              onChangeText={(text) => handleChange(text, i)}
-              onKeyPress={(e) => handleKeyPress(e, i)}
-            />
+            Platform.OS === 'web' ? (
+              <input
+                key={i}
+                ref={inputRefs[i]}
+                className="w-14 h-14 rounded-lg border border-[#333] text-center text-white text-xl bg-transparent outline-none"
+                maxLength={1}
+                type="number"
+                pattern="[0-9]*"
+                inputMode="numeric"
+                value={code[i]}
+                onChange={(e) => handleChange(e.target.value, i)}
+                onKeyDown={(e) => handleKeyPress(e, i)}
+              />
+            ) : (
+              <TextInput
+                key={i}
+                ref={inputRefs[i]}
+                className="w-14 h-14 rounded-lg border border-[#333] text-center text-white text-xl"
+                maxLength={1}
+                keyboardType="number-pad"
+                value={code[i]}
+                onChangeText={(text) => handleChange(text, i)}
+                onKeyPress={(e) => handleKeyPress(e, i)}
+              />
+            )
           ))}
         </View>
 
