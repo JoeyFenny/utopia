@@ -3,6 +3,7 @@ import { Row } from 'app/design/layout'
 import { View } from 'app/design/view'
 import { TextInput, Platform } from 'react-native'
 import { MotiLink } from 'solito/moti'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const GradientBackground = ({ children }: { children: React.ReactNode }) => {
   if (Platform.OS === 'web') {
@@ -14,18 +15,17 @@ const GradientBackground = ({ children }: { children: React.ReactNode }) => {
   }
 
   // For native platforms
-  return Platform.select({
-    native: (
-      <View className="flex-1 bg-[#0E0E0F]">
-        {children}
-      </View>
-    ),
-    default: (
-      <View className="flex-1 bg-[radial-gradient(100%_100%_at_0%_0%,_#4A484E_0%,_#0E0E0F_100%)]">
-        {children}
-      </View>
-    ),
-  })
+  return (
+    <LinearGradient
+      colors={['#4A484E', '#0E0E0F']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0.5, y: 0.5 }}
+      locations={[0, 0.5]}
+      style={{ flex: 1 }}
+    >
+      {children}
+    </LinearGradient>
+  )
 }
 
 export function HomeScreen() {
