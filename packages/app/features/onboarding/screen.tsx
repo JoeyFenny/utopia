@@ -8,12 +8,17 @@ const ONBOARDING_STEPS = [
   {
     image: 'https://images.unsplash.com/photo-1492724724894-7464c27d0ceb?q=80&w=1000',
     title: 'Your World Unlocked',
-    description: 'Discover your gateway to a world of content and endless possibilities, with everything you need in one place.'
+    description: 'You have earned you VIP status. This is your gateway to a world of curated rewards, high-end goods, and unforgettable experiences.'
   },
   {
     image: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?q=80&w=3093',
     title: 'Climb Higher',
-    description: 'Earn points for your contributions. Between. The coins redeem them here. The more you contribute, the higher you climb.'
+    description: 'Earn points for your activities on Betswap. The come redeem them here. The more you contribute, the higher you climb.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=3000',
+    title: 'Made just for you',
+    description: 'Access private events, early product releases, and luxury experiences tailored to your unique tastes. Enjoy perks designed for those who stand out.'
   }
 ]
 
@@ -25,14 +30,14 @@ export function OnboardingScreen() {
   const [touchStart, setTouchStart] = useState(0)
   
   const contentContainerStyle = Platform.select({
-    web: { height: '30vh' },
+    web: { height: screenHeight * 0.3 },
     default: { height: screenHeight * 0.4 }
-  })
+  }) as { height: number }
 
   const imageContainerStyle = Platform.select({
-    web: { height: '70vh' },
+    web: { height: screenHeight * 0.7 },
     default: { height: screenHeight * 0.6 }
-  })
+  }) as { height: number }
 
   const handleNext = () => {
     if (currentStep < ONBOARDING_STEPS.length - 1) {
