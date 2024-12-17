@@ -12,7 +12,7 @@ export function ExperienceScreen() {
               Experience Screen
             </H1>
             <Text className="text-white/75 text-lg text-center">
-              Coming soon...
+              Coming soon..
             </Text>
           </View>
         </View>
