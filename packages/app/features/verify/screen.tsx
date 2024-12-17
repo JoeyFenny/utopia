@@ -66,8 +66,8 @@ export function VerifyScreen() {
       </View>
       
       <View className="p-4">
-        <H1 className="text-white text-3xl font-light mb-8">
-          Please verify your{'\n'}phone number
+        <H1 style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined} className="text-white text-3xl font-light mb-8 text-left">
+          Please verify your phone number
         </H1>
         
         <View className="flex-row space-x-2 mb-4">

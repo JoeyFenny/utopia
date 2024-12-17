@@ -34,15 +34,15 @@ export function NotificationsScreen() {
 
             <View className="max-w-sm mx-auto w-full space-y-4">
               <TouchableOpacity 
-                onPress={() => push('/')}
-                style={{ backgroundColor: 'white', borderRadius: 9999, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                onPress={() => push('/experience')}
+                style={{ backgroundColor: 'white', borderRadius: 9999, height: 52, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 className="shadow-lg w-full"
               >
                 <Text className="text-black font-medium">Turn on Notifications</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
-                onPress={() => push('/')}
+                onPress={() => push('/experience')}
                 className="items-center"
               >
                 <Text className="text-white/80">Maybe Later</Text>
@@ -84,7 +84,7 @@ export function NotificationsScreen() {
         {/* Buttons Section - Bottom */}
         <View className="pb-12 space-y-4">
           <TouchableOpacity 
-            onPress={() => push('/')}
+            onPress={() => push('/experience')}
             style={{ backgroundColor: 'white', borderRadius: 9999, height: 56 }}
             className="items-center shadow-lg justify-center"
           >
@@ -92,7 +92,7 @@ export function NotificationsScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity 
-            onPress={() => push('/')}
+            onPress={() => push('/experience')}
             className="items-center"
           >
             <Text className="text-white/80">Maybe Later</Text>
