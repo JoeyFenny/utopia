@@ -6,17 +6,17 @@ import { useState, useEffect } from 'react'
 
 const ONBOARDING_STEPS = [
   {
-    image: 'https://images.unsplash.com/photo-1492724724894-7464c27d0ceb?q=80&w=1000',
+    image: 'https://storage.googleapis.com/what-is-utopia/onboarding-1.jpeg',
     title: 'Your World Unlocked',
     description: 'You have earned you VIP status. This is your gateway to a world of curated rewards, high-end goods, and unforgettable experiences.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?q=80&w=3093',
+    image: 'https://storage.googleapis.com/what-is-utopia/onboarding-2.jpeg',
     title: 'Climb Higher',
     description: 'Earn points for your activities on Betswap. The come redeem them here. The more you contribute, the higher you climb.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=3000',
+    image: 'https://storage.googleapis.com/what-is-utopia/onboarding-3.jpeg',
     title: 'Made just for you',
     description: 'Access private events, early product releases, and luxury experiences tailored to your unique tastes. Enjoy perks designed for those who stand out.'
   }
