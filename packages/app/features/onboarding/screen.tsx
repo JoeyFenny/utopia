@@ -125,7 +125,7 @@ export function OnboardingScreen() {
                 padding: 12
               }
             })}>
-              <TouchableOpacity onPress={() => push('/')}>
+              <TouchableOpacity onPress={() => push('/notifications')}>
                 <Text style={{
                   color: 'black',
                   textAlign: 'center',
