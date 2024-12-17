@@ -14,6 +14,7 @@ export function ExperienceScreen() {
                   <Text className="text-white/75 text-lg">Adam Horwitz</Text>
                   <Text 
                     className="text-white/50 text-sm mb-5 text-left"
+                    style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined}
                   >
                     VIP Member
                   </Text>
@@ -36,11 +37,13 @@ export function ExperienceScreen() {
                 <View className="absolute bottom-0 left-0 right-0 p-6">
                   <Text 
                     className="text-white text-2xl font-medium mb-1 text-left"
+                    style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined}
                   >
                     Rolex Submariner "Hulk"
                   </Text>
                   <Text 
                     className="text-yellow-500 text-lg text-left"
+                    style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined}
                   >
                     3,000 pts
                   </Text>
