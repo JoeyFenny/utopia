@@ -1,11 +1,10 @@
 import { View } from 'app/design/view'
 import { Text } from 'app/design/typography'
-import { useLocalSearchParams, router } from 'expo-router'
-import { TouchableOpacity, Image, ImageBackground } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { TouchableOpacity, Image, ImageBackground, Platform } from 'react-native'
+import { useRouter } from 'solito/router'
 
 export function ExperienceDetailsScreen() {
-  const { id } = useLocalSearchParams()
+  const router = useRouter()
   
   return (
     <View className="flex-1 bg-black">
@@ -18,7 +17,11 @@ export function ExperienceDetailsScreen() {
           onPress={() => router.back()}
           className="absolute top-12 left-4 z-10 bg-black/50 rounded-full p-2"
         >
-          <Ionicons name="chevron-back" size={24} color="white" />
+          {Platform.select({
+            ios: <Text className="text-white text-2xl">&lt;</Text>,
+            android: <Text className="text-white text-2xl">&lt;</Text>,
+            default: <Text className="text-white text-2xl">&lt;</Text>
+          })}
         </TouchableOpacity>
         
         <View className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
