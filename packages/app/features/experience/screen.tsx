@@ -1,7 +1,6 @@
 import { View } from 'app/design/view'
 import { Image, Platform, Pressable } from 'react-native'
 import { Text } from 'app/design/typography'
-import { LinearGradient } from 'expo-linear-gradient'
 
 export function ExperienceScreen() {
   if (Platform.OS === 'web') {
@@ -33,10 +32,6 @@ export function ExperienceScreen() {
                     height: 500,
                     objectFit: 'cover'
                   }}
-                />
-                <LinearGradient
-                  colors={['transparent', 'rgba(0,0,0,0.9)']}
-                  style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 160 }}
                 />
                 <View className="absolute bottom-0 left-0 right-0 p-6">
                   <Text 
@@ -121,10 +116,6 @@ export function ExperienceScreen() {
                   height: 500,
                   resizeMode: 'cover'
                 }}
-              />
-              <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.9)']}
-                style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 160 }}
               />
               <View className="absolute bottom-0 left-0 right-0 p-6">
                 <Text 
