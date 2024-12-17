@@ -1,8 +1,16 @@
 import { View } from 'app/design/view'
 import { Image, Platform, Pressable } from 'react-native'
 import { Text } from 'app/design/typography'
+import { useRouter } from 'solito/router'
 
 export function ExperienceScreen() {
+  const router = useRouter()
+  const experienceId = '123'
+
+  const handleCardPress = () => {
+    router.push(`/experience/details/${experienceId}`)
+  }
+
   if (Platform.OS === 'web') {
     return (
       <View className="flex-1 bg-black">
@@ -25,15 +33,17 @@ export function ExperienceScreen() {
                 </View>
               </View>
               <View className="relative rounded-3xl overflow-hidden">
-                <Image
-                  source={{ uri: 'https://storage.googleapis.com/what-is-utopia/rolex.png' }}
-                  className="h-[500px]"
-                  style={{
-                    width: '100%',
-                    height: 500,
-                    objectFit: 'cover'
-                  }}
-                />
+                <Pressable onPress={handleCardPress} className="cursor-pointer">
+                  <Image
+                    source={{ uri: 'https://storage.googleapis.com/what-is-utopia/rolex.png' }}
+                    className="h-[500px]"
+                    style={{
+                      width: '100%',
+                      height: 500,
+                      objectFit: 'cover'
+                    }}
+                  />
+                </Pressable>
                 <View className="absolute bottom-0 left-0 right-0 p-6">
                   <Text 
                     className="text-white text-2xl font-medium mb-1 text-left"
@@ -112,14 +122,16 @@ export function ExperienceScreen() {
               </View>
             </View>
             <View className="relative rounded-3xl overflow-hidden">
-              <Image
-                source={{ uri: 'https://storage.googleapis.com/what-is-utopia/rolex.png' }}
-                style={{
-                  width: '100%',
-                  height: 500,
-                  resizeMode: 'cover'
-                }}
-              />
+              <Pressable onPress={handleCardPress}>
+                <Image
+                  source={{ uri: 'https://storage.googleapis.com/what-is-utopia/rolex.png' }}
+                  style={{
+                    width: '100%',
+                    height: 500,
+                    resizeMode: 'cover'
+                  }}
+                />
+              </Pressable>
               <View className="absolute bottom-0 left-0 right-0 p-6">
                 <Text 
                   className="text-white text-2xl font-medium mb-1 text-left"
