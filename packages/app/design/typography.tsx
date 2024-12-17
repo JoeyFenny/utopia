@@ -3,17 +3,17 @@ import { Text as NativeText, Platform, Linking, TextStyle } from 'react-native'
 import { styled, StyledProps } from 'nativewind'
 import { TextLink as SolitoTextLink } from 'solito/link'
 
-export const Text = styled(NativeText)
+export const Text = styled(NativeText, 'text-center')
 
 /**
  * You can use this pattern to create components with default styles
  */
-export const P = styled(NativeText, 'text-base text-black my-4')
+export const P = styled(NativeText, 'text-base text-black my-4 text-center')
 
 /**
  * Components can have defaultProps and styles
  */
-export const H1 = styled(NativeText, 'text-3xl font-extrabold my-4')
+export const H1 = styled(NativeText, 'text-3xl font-extrabold my-4 text-center')
 H1.defaultProps = {
   accessibilityLevel: 1,
   accessibilityRole: 'header',
