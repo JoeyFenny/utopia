@@ -3,7 +3,7 @@ import { Image, Platform, Pressable } from 'react-native'
 import { Text } from 'app/design/typography'
 import { useRouter } from 'solito/router'
 
-export function ExperienceScreen() {
+export default function ExperienceScreen() {
   const router = useRouter()
   const experienceId = '123'
 

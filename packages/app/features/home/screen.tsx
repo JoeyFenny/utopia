@@ -17,7 +17,6 @@ const CREATE_USER_OR_LOGIN = gql`
         emailVerified
       }
       isNewUser
-      token
     }
   }
 `
@@ -41,7 +40,7 @@ export function HomeScreen() {
         }
       })
 
-      const { success, error: mutationError, token, user } = data.createUserOrLoginUser
+      const { success, error: mutationError, user } = data.createUserOrLoginUser
 
       if (!success) {
         setError(mutationError || 'An error occurred')

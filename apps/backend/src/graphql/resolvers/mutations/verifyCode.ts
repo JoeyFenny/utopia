@@ -4,50 +4,31 @@ import { GraphQLError } from 'graphql';
 import jwt from 'jsonwebtoken';
 
 export const verifyCodeSchema = gql`
-  input VerifyCodeInput {
-    email: String!
-    code: String!
+  type AuthPayload {
+    token: String!
+    user: User!
   }
 
-  type AuthResponse {
-    success: Boolean!
-    error: String
-    user: User
-    token: String
-  }
-
-  type Mutation {
-    verifyCode(input: VerifyCodeInput!): AuthResponse!
+  extend type Mutation {
+    verifyCode(email: String!, code: String!): AuthPayload!
   }
 `;
 
 export const verifyCodeResolver = {
   Mutation: {
-    verifyCode: async (_: any, { input }: { input: { email: string; code: string } }, { prisma }: { prisma: PrismaClient }) => {
+    verifyCode: async (_: any, { email, code }: { email: string; code: string }, { prisma }: { prisma: PrismaClient }) => {
       try {
-        const { email, code } = input;
-
         // Find user and check verification code
         const user = await prisma.user.findUnique({
           where: { email }
         });
 
         if (!user) {
-          return {
-            success: false,
-            error: 'User not found',
-            user: null,
-            token: null
-          };
+          throw new GraphQLError('User not found');
         }
 
         if (user.verificationCode !== code) {
-          return {
-            success: false,
-            error: 'Invalid verification code',
-            user: null,
-            token: null
-          };
+          throw new GraphQLError('Invalid verification code');
         }
 
         // Clear the verification code and set emailVerified to true
@@ -71,19 +52,12 @@ export const verifyCodeResolver = {
         );
 
         return {
-          success: true,
-          error: null,
-          user: updatedUser,
-          token
+          token,
+          user: updatedUser
         };
       } catch (error) {
         console.error('Error in verifyCode:', error);
-        return {
-          success: false,
-          error: error instanceof Error ? error.message : 'An error occurred while verifying code',
-          user: null,
-          token: null
-        };
+        throw error;
       }
     }
   }

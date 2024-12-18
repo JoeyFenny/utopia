@@ -1,1 +1,1 @@
-export * from './screen'
+export { default as ExperienceScreen } from './screen'

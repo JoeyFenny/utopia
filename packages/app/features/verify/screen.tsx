@@ -7,16 +7,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useMutation, gql } from '@apollo/client'
 
 const VERIFY_CODE = gql`
-  mutation VerifyCode($input: VerifyCodeInput!) {
-    verifyCode(input: $input) {
-      success
-      error
+  mutation VerifyCode($email: String!, $code: String!) {
+    verifyCode(email: $email, code: $code) {
+      token
       user {
         id
         email
         emailVerified
       }
-      token
     }
   }
 `
@@ -65,37 +63,60 @@ export function VerifyScreen() {
 
         const { data } = await verifyCode({
           variables: {
-            input: {
-              email,
-              code: finalCode
-            }
+            email,
+            code: finalCode
           }
         })
 
-        const { success, error: mutationError, token, user } = data.verifyCode
+        const { token, user } = data.verifyCode
 
-        if (!success) {
-          setError(mutationError || 'Invalid verification code')
-          return
-        }
-
-        if (token && user) {
-          await AsyncStorage.setItem('auth_token', token)
-          await AsyncStorage.setItem('auth_user', JSON.stringify(user))
-          // Clean up temp email
-          await AsyncStorage.removeItem('temp_email')
+        if (token) {
+          await AsyncStorage.setItem('token', token)
+          push('/experience')
         } else {
-          setError('Failed to get authentication token')
-          return
+          setError('Failed to verify code')
         }
-
-        // Success - proceed to notifications
-        push('/notifications')
       } catch (err) {
         setError('Failed to verify code')
       } finally {
         setIsLoading(false)
       }
+    }
+  }
+
+  const handleSubmit = async () => {
+    try {
+      setIsLoading(true)
+      const email = await AsyncStorage.getItem('temp_email')
+      if (!email) {
+        setError('Email not found')
+        return
+      }
+
+      const finalCode = code.join('')
+      if (finalCode.length !== 4) {
+        setError('Please enter a valid code')
+        return
+      }
+
+      const { data } = await verifyCode({
+        variables: {
+          email,
+          code: finalCode
+        }
+      })
+
+      if (data.verifyCode.token) {
+        await AsyncStorage.setItem('token', data.verifyCode.token)
+        push('/experience')
+      } else {
+        setError('Failed to verify code')
+      }
+    } catch (err) {
+      console.error('Verification error:', err)
+      setError('Failed to verify code')
+    } finally {
+      setIsLoading(false)
     }
   }
 

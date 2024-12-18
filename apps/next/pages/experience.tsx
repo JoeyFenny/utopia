@@ -1,3 +1,3 @@
-import { ExperienceScreen } from 'app/features/experience'
+import ExperienceScreen from 'app/features/experience/screen'
 
 export default ExperienceScreen
