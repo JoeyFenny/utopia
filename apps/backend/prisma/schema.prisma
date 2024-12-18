@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  email             String    @unique
+  verificationCode  String?
+  emailVerified     Boolean   @default(false)
+  notificationsEnabled Boolean @default(false)
+  name              String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  experiences       ExperienceInteraction[]
+}
+
+model Experience {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  bio             String
+  cost            Float
+  city            String
+  date            DateTime
+  carouselPhotos  String[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  interactions    ExperienceInteraction[]
+}
+
+model ExperienceInteraction {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String     @db.ObjectId
+  experienceId  String     @db.ObjectId
+  isInterested  Boolean
+  createdAt     DateTime   @default(now())
+  user          User       @relation(fields: [userId], references: [id])
+  experience    Experience @relation(fields: [experienceId], references: [id])
+
+  @@unique([userId, experienceId])
+}
+
+model PrismaInfo {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  prismaIsConnected Boolean
+  createdAt         DateTime @default(now())
+}

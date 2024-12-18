@@ -1,0 +1,44 @@
+type User {
+  id: ID!
+  email: String!
+  emailVerified: Boolean!
+  notificationsEnabled: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input EmailInput {
+  email: String!
+}
+
+input VerifyCodeInput {
+  email: String!
+  code: String!
+}
+
+type AuthResponse {
+  success: Boolean!
+  error: String
+  user: User
+  token: String
+  isNewUser: Boolean
+}
+
+type UpdateResponse {
+  success: Boolean!
+  error: String
+  user: User
+}
+
+type Query {
+  me: User
+}
+
+type Mutation {
+  createUserOrLoginUser(input: EmailInput!): AuthResponse!
+  verifyCode(input: VerifyCodeInput!): AuthResponse!
+  updateNotifications(enabled: Boolean!): UpdateResponse!
+}
+
+scalar DateTime
+scalar JSON
