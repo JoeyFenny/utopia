@@ -1,22 +1,41 @@
 import { H1, Text } from 'app/design/typography'
 import { View } from 'app/design/view'
-import { Pressable, TextInput, Platform } from 'react-native'
+import { Pressable, TextInput, Platform, ActivityIndicator } from 'react-native'
 import { useRouter } from 'solito/router'
 import { useRef, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useMutation, gql } from '@apollo/client'
+
+const VERIFY_CODE = gql`
+  mutation VerifyCode($input: VerifyCodeInput!) {
+    verifyCode(input: $input) {
+      success
+      error
+      user {
+        id
+        email
+        emailVerified
+      }
+      token
+    }
+  }
+`
 
 export function VerifyScreen() {
   const { back, push } = useRouter()
   const [code, setCode] = useState(['', '', '', ''])
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const inputRefs = [
     useRef<TextInput>(null),
     useRef<TextInput>(null),
     useRef<TextInput>(null),
     useRef<TextInput>(null),
   ]
+  const [verifyCode, { loading }] = useMutation(VERIFY_CODE)
 
-  const handleChange = (text: string, index: number) => {
-    setError(false)
+  const handleChange = async (text: string, index: number) => {
+    setError('')
     // Take only the last character if more than one digit is entered
     const singleDigit = text.slice(-1)
     if (!/^[0-9]*$/.test(singleDigit)) return
@@ -33,13 +52,49 @@ export function VerifyScreen() {
         inputRefs[index + 1].current?.focus()
       }
     } else if (index === 3) {
-      // Validate immediately when the 4th digit is entered
+      // Validate when the 4th digit is entered
       const finalCode = newCode.join('')
-      if (finalCode === '1234') {
-        setError(false)
-        push('/onboarding')
-      } else {
-        setError(true)
+      setIsLoading(true)
+      
+      try {
+        const email = await AsyncStorage.getItem('temp_email')
+        if (!email) {
+          setError('Please go back and enter your email')
+          return
+        }
+
+        const { data } = await verifyCode({
+          variables: {
+            input: {
+              email,
+              code: finalCode
+            }
+          }
+        })
+
+        const { success, error: mutationError, token, user } = data.verifyCode
+
+        if (!success) {
+          setError(mutationError || 'Invalid verification code')
+          return
+        }
+
+        if (token && user) {
+          await AsyncStorage.setItem('auth_token', token)
+          await AsyncStorage.setItem('auth_user', JSON.stringify(user))
+          // Clean up temp email
+          await AsyncStorage.removeItem('temp_email')
+        } else {
+          setError('Failed to get authentication token')
+          return
+        }
+
+        // Success - proceed to notifications
+        push('/notifications')
+      } catch (err) {
+        setError('Failed to verify code')
+      } finally {
+        setIsLoading(false)
       }
     }
   }
@@ -67,7 +122,7 @@ export function VerifyScreen() {
       
       <View className="p-4">
         <H1 style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined} className="text-white text-3xl font-light mb-8 text-left">
-          Please verify your phone number
+          Please verify your email
         </H1>
         
         <View className="flex-row space-x-2 mb-4">
@@ -113,9 +168,12 @@ export function VerifyScreen() {
           </View>
           
           {error && (
-            <Text className="text-red-500 mt-2">
-              Wrong code
+            <Text className="text-red-500 mt-2 text-left" style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined}>
+              {error}
             </Text>
+          )}
+          {isLoading && (
+            <ActivityIndicator size="small" color="#fff" style={{ marginTop: 8 }} />
           )}
         </View>
       </View>
