@@ -2,7 +2,8 @@
   "name": "solito-with-tailwind",
   "private": true,
   "workspaces": [
-    "apps/*",
+    "apps/expo",
+    "apps/next",
     "packages/*"
   ],
   "devDependencies": {
