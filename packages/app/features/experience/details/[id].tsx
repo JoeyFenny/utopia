@@ -1,6 +1,6 @@
 import { View } from 'app/design/view'
 import { Text, P, H1 } from 'app/design/typography'
-import { TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native'
+import { TouchableOpacity, Image, ImageBackground, ScrollView, Platform } from 'react-native'
 import { useRouter } from 'solito/router'
 
 export function ExperienceDetailsScreen() {
@@ -12,8 +12,15 @@ export function ExperienceDetailsScreen() {
                 <View className="relative">
                     <ImageBackground
                         source={{ uri: 'https://storage.googleapis.com/what-is-utopia/bear.png' }}
-                        className="w-full h-[60vh]"
-                        resizeMode="cover"
+                        className={Platform.select({
+                            web: 'w-full h-[500px]',
+                            default: 'w-full h-[55vh]'
+                        })}
+                        style={{ height: 500 }}
+                        resizeMode={Platform.select({
+                            web: 'contain',
+                            default: 'cover'
+                        })}
                     >
                         <TouchableOpacity
                             onPress={() => router.back()}
@@ -24,7 +31,7 @@ export function ExperienceDetailsScreen() {
                     </ImageBackground>
 
                     <View className="p-4">
-                        <Text style={{ textAlign: 'left' }} className="text-2xl font-bold text-white left-align">Macy's Thanksgiving Parade VIP Package</Text>
+                        <Text style={{ textAlign: 'left' }} className="text-[28px] font-medium text-white left-align">Macy's Thanksgiving Parade VIP Package</Text>
                         <View className="flex-row items-center mt-2">
                             <Text className="text-yellow-500">500 Pts</Text>
                             <Text className="text-gray-400 mx-2">•</Text>
