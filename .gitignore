@@ -72,7 +72,6 @@ web-build/
 .turbo
 build/**
 
-
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -80,3 +79,12 @@ build/**
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+apps/backend/.yarn/*
+apps/backend/dist/*
+apps/node_modules/*
+
+# NVM
+.nvm/
+**/nvm.sh
+**/nvm-exec

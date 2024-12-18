@@ -9,12 +9,14 @@
     "@types/react": "^18.2.21",
     "@types/react-native": "^0.72.2",
     "eslint": "^8.21.0",
+    "patch-package": "^8.0.0",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
     "turbo": "^1.4.2",
     "typescript": "^5.2.2"
   },
   "scripts": {
+    "postinstall": "patch-package",
     "native": "cd apps/expo && yarn start",
     "web": "cd apps/next && yarn next"
   },
@@ -28,6 +30,9 @@
   ],
   "packageManager": "yarn@3.4.1",
   "dependencies": {
-    "expo-linear-gradient": "~12.3.0"
+    "@apollo/client": "^3.12.3",
+    "@react-native-async-storage/async-storage": "1.18.2",
+    "expo-linear-gradient": "~12.3.0",
+    "graphql": "^16.10.0"
   }
 }
