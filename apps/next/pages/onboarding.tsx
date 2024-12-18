@@ -1,3 +1,3 @@
-import { OnboardingScreen } from 'app/features/onboarding/screen'
+import OnboardingScreen from 'app/features/onboarding/screen'
 
 export default OnboardingScreen

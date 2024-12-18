@@ -26,8 +26,8 @@ const SWIPE_THRESHOLD = 50
 
 export function OnboardingScreen() {
   const screenHeight = Dimensions.get('window').height
-  const { push } = useRouter()
-  const [currentStep, setCurrentStep] = useState(0)
+  const router = useRouter()
+  const [step, setStep] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
 
   const contentContainerStyle = Platform.select({
@@ -41,14 +41,14 @@ export function OnboardingScreen() {
   })
 
   const handleNext = () => {
-    if (currentStep < ONBOARDING_STEPS.length - 1) {
-      setCurrentStep(currentStep + 1)
+    if (step < ONBOARDING_STEPS.length - 1) {
+      setStep(step + 1)
     }
   }
 
   const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1)
+    if (step > 0) {
+      setStep(step - 1)
     }
   }
 
@@ -79,7 +79,7 @@ export function OnboardingScreen() {
       {/* Image container */}
       <View style={imageContainerStyle}>
         <Image
-          source={{ uri: ONBOARDING_STEPS[currentStep].image }}
+          source={{ uri: ONBOARDING_STEPS[step].image }}
           className="w-full h-full"
           resizeMode="cover"
           style={Platform.OS === 'web' ? { width: '100%', height: '100%', objectFit: 'cover' } : undefined}
@@ -90,14 +90,14 @@ export function OnboardingScreen() {
       <View className="bg-black px-8 pt-8 pb-12 flex justify-between" style={contentContainerStyle}>
         <View>
           <H1 className="text-white text-4xl font-light mb-4">
-            {ONBOARDING_STEPS[currentStep].title}
+            {ONBOARDING_STEPS[step].title}
           </H1>
           <Text className="text-white/80 text-lg">
-            {ONBOARDING_STEPS[currentStep].description}
+            {ONBOARDING_STEPS[step].description}
           </Text>
         </View>
 
-        {currentStep === ONBOARDING_STEPS.length - 1 && (
+        {step === ONBOARDING_STEPS.length - 1 && (
           <View style={Platform.select({
             web: { 
               width: '100%',
@@ -125,7 +125,7 @@ export function OnboardingScreen() {
                 padding: 12
               }
             })}>
-              <TouchableOpacity onPress={() => push('/notifications')}>
+              <TouchableOpacity onPress={() => router.push('/notifications')}>
                 <Text style={{
                   color: 'black',
                   textAlign: 'center',
@@ -138,12 +138,12 @@ export function OnboardingScreen() {
           </View>
         )}
 
-        {currentStep !== ONBOARDING_STEPS.length - 1 && (
+        {step !== ONBOARDING_STEPS.length - 1 && (
           <View className="flex-row justify-center space-x-2 mt-8">
             {ONBOARDING_STEPS.map((_, index) => (
-              <Pressable key={index} onPress={() => setCurrentStep(index)}>
+              <Pressable key={index} onPress={() => setStep(index)}>
                 <View 
-                  className={`w-2 h-2 rounded-full ${index === currentStep ? 'bg-[#FED700]' : 'bg-[#333333]'}`}
+                  className={`w-2 h-2 rounded-full ${index === step ? 'bg-[#FED700]' : 'bg-[#333333]'}`}
                 />
               </Pressable>
             ))}

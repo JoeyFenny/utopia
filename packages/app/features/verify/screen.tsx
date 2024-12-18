@@ -72,7 +72,11 @@ export function VerifyScreen() {
 
         if (token) {
           await AsyncStorage.setItem('token', token)
-          push('/experience')
+          if (Platform.OS === 'web') {
+            push('/onboarding')
+          } else {
+            push('/onboarding/')
+          }
         } else {
           setError('Failed to verify code')
         }
@@ -108,7 +112,11 @@ export function VerifyScreen() {
 
       if (data.verifyCode.token) {
         await AsyncStorage.setItem('token', data.verifyCode.token)
-        push('/experience')
+        if (Platform.OS === 'web') {
+          push('/onboarding')
+        } else {
+          push('/onboarding/')
+        }
       } else {
         setError('Failed to verify code')
       }
