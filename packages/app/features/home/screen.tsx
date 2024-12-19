@@ -1,6 +1,6 @@
-import { H1, Text } from 'app/design/typography'
+import { Text } from 'app/design/typography'
 import { View } from 'app/design/view'
-import { TextInput, Pressable, ActivityIndicator, Platform } from 'react-native'
+import { TextInput, Pressable, ActivityIndicator, Platform, Image } from 'react-native'
 import { useState } from 'react'
 import { useRouter } from 'solito/router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -59,13 +59,24 @@ export function HomeScreen() {
 
   return (
     <View className="flex-1 items-center justify-center p-3 bg-black">
-      <H1 className="text-white">Utopia</H1>
+      <Image 
+        source={Platform.select({
+          web: { uri: '/logo.png' },
+          default: require('../../assets/images/logo.png')
+        })}
+        style={{
+          width: 140,
+          height: 60,
+          resizeMode: 'contain',
+          marginBottom: 40
+        }}
+      />
       <View
         style={{
           height: Platform.select({
-            ios: 200,
-            android: 200,
-            web: 50,
+            ios: 20,
+            android: 20,
+            web: 20,
           }),
         }}
       />
@@ -76,7 +87,7 @@ export function HomeScreen() {
           borderColor: error ? '#ef4444' : '#666',
           paddingHorizontal: 16,
           paddingVertical: 8,
-          borderRadius: 24,
+          borderRadius: 8,
           fontSize: 16,
           color: '#666',
           ...Platform.select({
@@ -84,7 +95,8 @@ export function HomeScreen() {
               width: "100%"
             },
             web: {
-              width: 400
+              width: 400,
+              borderRadius: 8
             },
           }),
         }}
@@ -166,14 +178,24 @@ export function HomeScreen() {
       <View
         style={{
           height: Platform.select({
-            ios: 200,
-            android: 200,
-            web: 50,
+            ios: 100,
+            android: 100,
+            web: 100,
           }),
         }}
       />
-      <Text className="text-[#666] text-sm">Powered by</Text>
-      <H1 className="text-white">Utopia</H1>
+      <Text className="text-[#666] text-sm mb-2">Powered by</Text>
+      <Image 
+        source={Platform.select({
+          web: { uri: '/logo.png' },
+          default: require('../../assets/images/logo.png')
+        })}
+        style={{
+          width: 70,
+          height: 30,
+          resizeMode: 'contain'
+        }}
+      />
     </View>
   )
 }
