@@ -16,141 +16,107 @@ utopia/
 ## 🚀 Tech Stack
 
 ### Frontend (Mobile & Web)
-- **Solito**: Cross-platform navigation and shared components
-- **Expo**: Mobile app development framework
-- **Next.js**: React framework for web
-- **NativeWind**: Tailwind CSS for React Native
-- **Apollo Client**: GraphQL client
-- **React Native**: Mobile app development
+- **Solito**: Cross-platform navigation (v4.3.0)
+- **Expo**: Mobile app development framework (v49.0.0)
+- **Next.js**: React framework for web (v13.4.19)
+- **NativeWind**: Tailwind CSS for React Native (v2.0.11)
+- **Apollo Client**: GraphQL client (v3.12.3)
+- **React**: v18.2.0
+- **React Native**: v0.72.4
+- **React Native Web**: v0.19.9
 - **TypeScript**: Type-safe development
 
 ### Backend
-- **Node.js**: Runtime environment
+- **Node.js**: Runtime environment (v18+)
 - **GraphQL**: API query language
 - **Apollo Server**: GraphQL server
 - **Prisma**: Database ORM
 - **GraphQL Shield**: Permission layer
-- **PostgreSQL**: Database
+- **MongoDB**: NoSQL Database
 
 ## 🔧 Setup & Installation
 
 ### Prerequisites
 - Node.js (v18 or later)
-- Yarn
+- Yarn (v3.4.1)
 - Expo CLI
-- PostgreSQL
+- MongoDB
 
-### Environment Variables
+### Installation Steps
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/utopia.git
+cd utopia
+```
+
+2. Install dependencies:
+```bash
+yarn install
+```
+
+3. Set up environment variables:
 
 Create the following `.env` files:
 
 #### apps/backend/.env
 ```
-DATABASE_URL="postgresql://user:password@localhost:5432/utopia"
+DATABASE_URL="mongodb://localhost:27017/utopia"
 JWT_SECRET="your-jwt-secret"
 PORT=4000
 ```
 
-#### apps/next/.env.local
-```
-NEXT_PUBLIC_API_URL="http://localhost:4000/graphql"
-```
+### Running the Apps
 
-#### apps/expo/.env
-```
-API_URL="http://localhost:4000/graphql"
-```
-
-### Installation Steps
-
-1. Install dependencies:
-```bash
-yarn install
-```
-
-2. Set up the database:
-```bash
-cd apps/backend
-npx prisma migrate dev
-```
-
-## 🏃‍♂️ Running Locally
-
-### Backend Server
+1. Start the backend server:
 ```bash
 cd apps/backend
 yarn dev
 ```
-The GraphQL server will be available at `http://localhost:4000/graphql`
 
-### Web App (Next.js)
+2. Start the web app:
 ```bash
-cd apps/next
-yarn dev
-```
-Access the web app at `http://localhost:3000`
-
-### Mobile App (Expo)
-```bash
-cd apps/expo
-yarn start
-```
-This will open the Expo developer tools. You can run the app on:
-- iOS simulator (press `i`)
-- Android emulator (press `a`)
-- Physical device (scan QR code with Expo Go app)
-
-## 🔄 Development Workflow
-
-- The `packages/` directory contains shared code between platforms
-- Use Solito for cross-platform navigation
-- Style with NativeWind/Tailwind classes
-- Write GraphQL queries/mutations in the shared package
-- Use Prisma Studio to manage database records (`npx prisma studio`)
-
-## 🧪 Testing
-
-Each app can be tested individually:
-
-```bash
-# Backend tests
-cd apps/backend
-yarn test
-
-# Web tests
-cd apps/next
-yarn test
-
-# Mobile tests
-cd apps/expo
-yarn test
+yarn web
 ```
 
-## 📱 Building for Production
-
-### Web (Next.js)
+3. Start the mobile app:
 ```bash
-cd apps/next
-yarn build
+yarn native
 ```
 
-### Mobile (Expo)
-```bash
-cd apps/expo
-yarn build:android  # For Android
-yarn build:ios     # For iOS
-```
+## 📦 Package Dependencies
 
-### Backend
-```bash
-cd apps/backend
-yarn build
-```
+### Shared Dependencies (packages/app)
+- `@apollo/client`: GraphQL client
+- `@react-native-async-storage/async-storage`: Storage
+- `graphql`: GraphQL library
+- `moti`: Animation library
+- `nativewind`: Tailwind for React Native
+- `solito`: Cross-platform navigation
 
-## 📚 Additional Resources
+### Web App (apps/next)
+- `@expo/next-adapter`: Expo adapter for Next.js
+- `next`: Web framework
+- `raf`: RequestAnimationFrame polyfill
 
-- [Solito Documentation](https://solito.dev)
-- [Expo Documentation](https://docs.expo.dev)
-- [NativeWind Documentation](https://nativewind.dev)
-- [Apollo GraphQL Documentation](https://www.apollographql.com/docs/)
-- [Prisma Documentation](https://www.prisma.io/docs/)
+### Mobile App (apps/expo)
+- `expo`: Mobile framework
+- `expo-router`: File-based routing
+- `expo-constants`: Constants
+- `expo-linking`: Deep linking
+- `react-native-gesture-handler`: Gesture system
+- `react-native-reanimated`: Animations
+- `react-native-safe-area-context`: Safe area utilities
+- `react-native-screens`: Native navigation
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
