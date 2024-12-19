@@ -12,6 +12,7 @@ export type RootStackParamList = {
   notifications: undefined;
   experiences: undefined;
   'experiences/:id': { id: string };
+  'experience-details': { id: string };
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -32,6 +33,7 @@ export function NativeNavigation({
             Linking.createURL('/experiences'),
             Linking.createURL('/experiences/'),
             Linking.createURL('/experiences/:id'),
+            Linking.createURL('/experience-details'),
           ],
           config: {
             initialRouteName: 'onboarding',
@@ -69,7 +71,7 @@ export function NativeNavigation({
           }}
         />
         <Stack.Screen
-          name="experiences/:id"
+          name="experience-details"
           component={ExperienceDetailsScreen}
           options={{
             headerShown: false
