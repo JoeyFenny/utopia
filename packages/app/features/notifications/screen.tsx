@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 100,
     paddingVertical: 16,
-    width: '100%',
+    width: Platform.OS === 'web' ? '50%' : '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
