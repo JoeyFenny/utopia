@@ -21,6 +21,8 @@ const CREATE_USER_OR_LOGIN = gql`
   }
 `
 
+const getResponsiveWidth = () => Platform.OS === 'web' ? '85%' : '100%'
+
 export function HomeScreen() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
@@ -90,15 +92,7 @@ export function HomeScreen() {
           borderRadius: 8,
           fontSize: 16,
           color: '#666',
-          ...Platform.select({
-            ios: {
-              width: "100%"
-            },
-            web: {
-              width: 400,
-              borderRadius: 8
-            },
-          }),
+          width: getResponsiveWidth()
         }}
         placeholder="Email"
         placeholderTextColor="#666"
@@ -116,11 +110,7 @@ export function HomeScreen() {
       />
       {error && (
         <Text className="text-red-500 text-sm mb-4 w-full text-left" style={{
-          ...Platform.select({
-            web: {
-              width: 400
-            },
-          }),
+          width: getResponsiveWidth()
         }}>
           {error}
         </Text>
@@ -136,30 +126,16 @@ export function HomeScreen() {
       />
       <Pressable
         className="w-full bg-white rounded-[24px] mb-4 items-center justify-center"
-        style={{
-          paddingHorizontal: 16,
-          paddingVertical: 8,
-          backgroundColor: 'white',
-          opacity: loading ? 0.7 : 1,
-          ...Platform.select({
-            ios: {
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            },
-            android: {
-              elevation: 4,
-            },
-            web: {
-              width: 400,
-              borderRadius: 24
-            },
-          }),
-        }}
+        style={[
+          {
+            paddingHorizontal: 16,
+            paddingVertical: 8,
+            backgroundColor: 'white',
+            opacity: loading ? 0.7 : 1,
+            borderRadius: 24,
+            width: getResponsiveWidth()
+          },
+        ]}
         onPress={handleSubmit}
         disabled={loading}>
         <View className="flex-row items-center justify-center">
