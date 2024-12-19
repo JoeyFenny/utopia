@@ -1,1 +1,1 @@
-web: cd apps/backend && yarn install && yarn prisma generate && yarn tsc && yarn start
+web: cd apps/backend && yarn cache clean && yarn install --frozen-lockfile && yarn prisma generate && yarn tsc && yarn start
