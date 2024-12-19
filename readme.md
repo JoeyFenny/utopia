@@ -16,15 +16,15 @@ utopia/
 ## 🚀 Tech Stack
 
 ### Frontend (Mobile & Web)
-- **Solito**: Cross-platform navigation (v4.3.0)
-- **Expo**: Mobile app development framework (v49.0.0)
-- **Next.js**: React framework for web (v13.4.19)
-- **NativeWind**: Tailwind CSS for React Native (v2.0.11)
+- **Solito**: Cross-platform navigation
+- **Expo**: Mobile app development framework
+- **Next.js**: React framework for web
+- **NativeWind**: Tailwind CSS for React Native
 - **Apollo Client**: GraphQL client (v3.12.3)
 - **React**: v18.2.0
-- **React Native**: v0.72.4
-- **React Native Web**: v0.19.9
-- **TypeScript**: Type-safe development
+- **React Native**: v0.72.2
+- **React Native Web**: v0.19.6
+- **TypeScript**: v5.2.2
 
 ### Backend
 - **Node.js**: Runtime environment (v18+)
@@ -86,28 +86,19 @@ yarn native
 
 ## 📦 Package Dependencies
 
-### Shared Dependencies (packages/app)
-- `@apollo/client`: GraphQL client
-- `@react-native-async-storage/async-storage`: Storage
-- `graphql`: GraphQL library
-- `moti`: Animation library
-- `nativewind`: Tailwind for React Native
-- `solito`: Cross-platform navigation
+### Shared Dependencies
+- `@apollo/client`: v3.12.3
+- `@react-native-async-storage/async-storage`: v1.18.2
+- `graphql`: v16.10.0
+- `expo-linear-gradient`: v12.3.0
 
-### Web App (apps/next)
-- `@expo/next-adapter`: Expo adapter for Next.js
-- `next`: Web framework
-- `raf`: RequestAnimationFrame polyfill
+### Development Dependencies
+- `typescript`: v5.2.2
+- `prettier`: v3.0.3
+- `eslint`: v8.21.0
+- `turbo`: v1.4.2
 
-### Mobile App (apps/expo)
-- `expo`: Mobile framework
-- `expo-router`: File-based routing
-- `expo-constants`: Constants
-- `expo-linking`: Deep linking
-- `react-native-gesture-handler`: Gesture system
-- `react-native-reanimated`: Animations
-- `react-native-safe-area-context`: Safe area utilities
-- `react-native-screens`: Native navigation
+For a complete list of dependencies and their versions, please refer to the `package.json` files in each directory.
 
 ## 🤝 Contributing
 
