@@ -69,7 +69,7 @@ export function NativeNavigation({
           }}
         />
         <Stack.Screen
-          name="experiences/[id]"
+          name="experiences/:id"
           component={ExperienceDetailsScreen}
           options={{
             headerShown: false

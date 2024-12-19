@@ -23,6 +23,7 @@ export function NotificationsScreen() {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isMaybeLaterLoading, setIsMaybeLaterLoading] = useState(false)
   const [isWebNotificationsSupported, setIsWebNotificationsSupported] = useState(false)
 
   useEffect(() => {
@@ -75,11 +76,36 @@ export function NotificationsScreen() {
     }
   }
 
-  const handleMaybeLater = () => {
-    if (Platform.OS === 'web') {
-      router.push('/experiences')
-    } else {
-      router.push('/experiences')
+  const handleMaybeLater = async () => {
+    setIsMaybeLaterLoading(true)
+    setError(null)
+
+    try {
+      const token = await AsyncStorage.getItem('token')
+      if (!token) {
+        setError('Please sign in to continue')
+        return
+      }
+
+      const { data } = await updateNotifications({
+        variables: {
+          enabled: false
+        }
+      })
+
+      if (data?.updateNotifications?.success) {
+        if (Platform.OS === 'web') {
+          router.push('/experiences')
+        } else {
+          router.push('/experiences')
+        }
+      } else {
+        setError(data?.updateNotifications?.error || 'Something went wrong')
+      }
+    } catch (err) {
+      setError('Failed to update notification preferences')
+    } finally {
+      setIsMaybeLaterLoading(false)
     }
   }
 
@@ -119,12 +145,17 @@ export function NotificationsScreen() {
               )}
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               onPress={handleMaybeLater}
+              style={styles.secondaryButton}
             >
-              <Text style={styles.secondaryButtonText}>
-                Maybe Later
-              </Text>
+              {isMaybeLaterLoading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.secondaryButtonText}>
+                  Maybe Later
+                </Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -203,6 +234,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 16,
     ...(Platform.OS === 'web' ? { fontFamily: 'system-ui' } : {}),
+  },
+  secondaryButton: {
+    paddingVertical: 16,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   secondaryButtonText: {
     color: 'rgba(255, 255, 255, 0.6)',
