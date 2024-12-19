@@ -7,6 +7,18 @@ type User {
   updatedAt: DateTime!
 }
 
+type Experience {
+  id: ID!
+  name: String!
+  bio: String!
+  cost: Float!
+  city: String!
+  date: DateTime!
+  carouselPhotos: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 input EmailInput {
   email: String!
 }
@@ -32,12 +44,15 @@ type UpdateResponse {
 
 type Query {
   me: User
+  experience(id: ID!): Experience
+  feedExperiences: [Experience!]!
 }
 
 type Mutation {
   createUserOrLoginUser(input: EmailInput!): AuthResponse!
   verifyCode(input: VerifyCodeInput!): AuthResponse!
   updateNotifications(enabled: Boolean!): UpdateResponse!
+  updateExperienceInteraction(experienceId: ID!, isInterested: Boolean!): Experience
 }
 
 scalar DateTime
