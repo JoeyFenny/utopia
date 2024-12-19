@@ -171,13 +171,16 @@ export default function ExperiencesScreen() {
             </Pressable>
           </View>
         </View>
+        {Platform.OS === 'web' && (
+          <View style={{ height: 300 }} />
+        )}
       </View>
     )
   }
 
   return (
     <View className="flex-1 bg-black">
-      <View className="flex-1 relative">
+      <View className="flex-1 relative" style={Platform.OS === 'web' ? { paddingHorizontal: '10%' } : undefined}>
         <View className="flex-1 items-center pt-20">
           {renderContent()}
         </View>
@@ -201,14 +204,6 @@ export default function ExperiencesScreen() {
             </Pressable>
           </View>
         </View>
-      </View>
-    </View>
-  )
-
-  return (
-    <View className="flex-1 bg-black">
-      <View className="flex-1 items-center pt-20">
-        {renderContent()}
       </View>
     </View>
   )
