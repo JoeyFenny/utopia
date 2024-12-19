@@ -12,15 +12,11 @@
     "yarn": "1.22.19"
   },
   "scripts": {
-    "dev": "yarn prisma db push && tsc && nodemon -r dotenv/config --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts dotenv_config_path=./.env",
+    "dev": "nodemon",
     "build": "tsc",
-    "prisma:deploy": "npx prisma db push",
-    "test": "jest --runInBand --detectOpenHandles",
-    "prettier": "prettier --write \"**/*.{tsx,ts,css,md,js,html}\"",
-    "eslint": "eslint ./src/**/*.ts --fix",
-    "lint": "eslint .",
-    "studio": "npx prisma studio",
-    "start": "node -r dotenv/config dist/src/index.js"
+    "start": "node -r dotenv/config dist/src/index.js",
+    "seed": "ts-node prisma/seed.ts",
+    "add-experiences": "ts-node scripts/addExperiences.ts"
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
