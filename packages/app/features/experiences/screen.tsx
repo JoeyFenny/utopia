@@ -87,8 +87,9 @@ export default function ExperiencesScreen() {
     if (currentIndex >= data.feedExperiences.length) {
       return (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-white/75 text-lg text-center">You've reached the end of your feed</Text>
+          <Text className="text-white/75 text-lg text-center">You've reached the end of your feed!</Text>
           <Text className="text-white/50 text-sm text-center mt-2">Check back later for more experiences</Text>
+          <Text className="text-white/50 text-sm text-center mt-2">Or for demo purposes go back to the home screen and try again under a new login</Text>
         </View>
       )
     }
