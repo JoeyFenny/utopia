@@ -94,7 +94,7 @@ export function HomeScreen() {
           color: '#666',
           width: getResponsiveWidth()
         }}
-        placeholder="Email"
+        placeholder="Enter your email"
         placeholderTextColor="#666"
         value={email}
         onChangeText={(text) => {
