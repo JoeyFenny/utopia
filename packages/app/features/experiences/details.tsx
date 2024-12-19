@@ -1,7 +1,7 @@
 import { View } from 'app/design/view'
 import { Text } from 'app/design/typography'
 import { useRouter } from 'next/router';
-import { Pressable, ActivityIndicator, Image } from 'react-native'
+import { Pressable, ActivityIndicator, Image, Platform } from 'react-native'
 import { useQuery, gql } from '@apollo/client'
 import React from 'react';
 
@@ -58,85 +58,102 @@ export function ExperienceDetailsScreen() {
 
   return (
     <View className="flex-1 bg-black">
-      <View className="absolute z-10 p-4 pt-12">
-        <Pressable onPress={() => back()}>
-          <View className="w-8 h-8 rounded-full bg-white items-center justify-center">
-            <Text className="text-black text-lg">‹</Text>
-          </View>
-        </Pressable>
-      </View>
+      <View style={[
+        { flex: 1 },
+        Platform.OS === 'web' && {
+          maxWidth: 500,
+          alignSelf: 'center',
+          width: '100%',
+          position: 'relative'
+        }
+      ]}>
+        <View className="absolute z-10 p-4 pt-12">
+          <Pressable onPress={() => back()}>
+            <View className="w-8 h-8 rounded-full bg-white items-center justify-center">
+              <Text className="text-black text-lg">‹</Text>
+            </View>
+          </Pressable>
+        </View>
 
-      {experience.carouselPhotos?.[0] && (
-        <View>
-          <Image
-            source={{ uri: experience.carouselPhotos[0] }}
-            className="h-[500px]"
+        {experience.carouselPhotos?.[0] && (
+          <View>
+            <Image
+              source={{ uri: experience.carouselPhotos[0] }}
+              className="h-[500px]"
+              style={{
+                width: '100%',
+                height: 500,
+                objectFit: 'cover'
+              }}
+            />
+          </View>
+        )}
+
+        <View style={[
+          { padding: 16, paddingBottom: 96 },
+          Platform.OS === 'web' && {
+            // maxWidth: 500,
+            // alignSelf: 'center',
+            // width: '100%'
+          }
+        ]}>
+          <View className="items-start">
+            <Text className="text-white text-3xl font-normal">{experience.name}</Text>
+            <View className="flex-row items-center mt-1 space-x-2">
+              <Text className="text-yellow-500">{experience.cost} Pts</Text>
+              <Text className="text-white/50">•</Text>
+              <Text className="text-white/50">{experience.city}</Text>
+              <Text className="text-white/50">•</Text>
+              <Text className="text-white/50">{new Date(experience.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</Text>
+            </View>
+          </View>
+          
+          <View className="mt-8 items-start">
+            <Text className="text-white text-xl">About</Text>
+            <Text className="text-white/70 mt-2" style={{ textAlign: 'left' }}>
+            {experience.bio}
+            </Text>
+          </View>
+        </View>
+
+        {/* Floating Book Button */}
+        <View style={{
+          position: 'absolute',
+          bottom: 24,
+          left: 24,
+          right: 24
+        }}>
+          <Pressable 
+            onPress={() => {
+              setIsBooking(true)
+              setTimeout(() => {
+                setIsBooking(false)
+              }, 400)
+            }} 
             style={{
               width: '100%',
-              height: 500,
-              objectFit: 'cover'
+              backgroundColor: 'white',
+              borderRadius: 100,
+              paddingVertical: 16,
+              alignItems: 'center',
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.3,
+              shadowRadius: 8,
+              elevation: 8
             }}
-          />
+          >
+            {isBooking ? (
+              <ActivityIndicator color="black" />
+            ) : (
+              <Text style={{
+                color: 'black',
+                fontSize: 18,
+                fontWeight: '600'
+              }}>Book Experience</Text>
+            )}
+          </Pressable>
         </View>
-      )}
-
-      <View className="p-4 pb-24">
-        <View className="items-start">
-          <Text className="text-white text-3xl font-normal">{experience.name}</Text>
-          <View className="flex-row items-center mt-1 space-x-2">
-            <Text className="text-yellow-500">{experience.cost} Pts</Text>
-            <Text className="text-white/50">•</Text>
-            <Text className="text-white/50">{experience.city}</Text>
-            <Text className="text-white/50">•</Text>
-            <Text className="text-white/50">{new Date(experience.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</Text>
-          </View>
-        </View>
-        
-        <View className="mt-8 items-start">
-          <Text className="text-white text-xl">About</Text>
-          <Text className="text-white/70 mt-2" style={{ textAlign: 'left' }}>
-          {experience.bio}
-          </Text>
-        </View>
-      </View>
-
-      {/* Floating Book Button */}
-      <View style={{
-        position: 'absolute',
-        bottom: 24,
-        left: 24,
-        right: 24
-      }}>
-        <Pressable 
-          onPress={() => {
-            setIsBooking(true)
-            setTimeout(() => {
-              setIsBooking(false)
-            }, 400)
-          }} 
-          style={{
-            width: '100%',
-            backgroundColor: 'white',
-            borderRadius: 100,
-            paddingVertical: 16,
-            alignItems: 'center',
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.3,
-            shadowRadius: 8,
-            elevation: 8
-          }}
-        >
-          {isBooking ? (
-            <ActivityIndicator color="black" />
-          ) : (
-            <Text style={{
-              color: 'black',
-              fontSize: 18,
-              fontWeight: '600'
-            }}>Book Experience</Text>
-          )}
-        </Pressable>
       </View>
     </View>
   )
