@@ -3,12 +3,12 @@ import { Image, Platform, Pressable } from 'react-native'
 import { Text } from 'app/design/typography'
 import { useRouter } from 'solito/router'
 
-export default function ExperienceScreen() {
+export default function ExperiencesScreen() {
   const router = useRouter()
   const experienceId = '123'
 
   const handleCardPress = () => {
-    router.push(`/experience/details/${experienceId}`)
+    router.push(`/experiences/${experienceId}`)
   }
 
   if (Platform.OS === 'web') {
@@ -20,7 +20,7 @@ export default function ExperienceScreen() {
               <View className="flex-row justify-between items-start mb-3">
                 <View>
                   <Text className="text-white/75 text-lg">Adam Horwitz</Text>
-                  <Text 
+                  <Text
                     className="text-white/50 text-sm mb-5 text-left"
                     style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined}
                   >
@@ -45,13 +45,13 @@ export default function ExperienceScreen() {
                   />
                 </Pressable>
                 <View className="absolute bottom-0 left-0 right-0 p-6">
-                  <Text 
+                  <Text
                     className="text-white text-2xl font-medium mb-1 text-left"
                     style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined}
                   >
                     Rolex Submariner "Hulk"
                   </Text>
-                  <Text 
+                  <Text
                     className="text-yellow-500 text-lg text-left"
                     style={Platform.OS === 'web' ? { textAlign: 'left' } : undefined}
                   >
@@ -110,7 +110,7 @@ export default function ExperienceScreen() {
             <View className="flex-row justify-between items-start mb-3">
               <View>
                 <Text className="text-white/75 text-lg">Adam Horwitz</Text>
-                <Text 
+                <Text
                   className="text-white/50 text-sm mb-5 text-left"
                 >
                   VIP Member
@@ -133,12 +133,12 @@ export default function ExperienceScreen() {
                 />
               </Pressable>
               <View className="absolute bottom-0 left-0 right-0 p-6">
-                <Text 
+                <Text
                   className="text-white text-2xl font-medium mb-1 text-left"
                 >
                   Rolex Submariner "Hulk"
                 </Text>
-                <Text 
+                <Text
                   className="text-yellow-500 text-lg text-left"
                 >
                   3,000 pts

@@ -2,7 +2,7 @@ import { H1, Text } from 'app/design/typography'
 import { View } from 'app/design/view'
 import { Image, Platform, Dimensions, Pressable, TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const ONBOARDING_STEPS = [
   {

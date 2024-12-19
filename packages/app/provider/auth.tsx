@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const loadStoredAuth = async () => {
     try {
-      const storedToken = await AsyncStorage.getItem('auth_token')
+      const storedToken = await AsyncStorage.getItem('token')
       const storedUser = await AsyncStorage.getItem('auth_user')
       
       if (storedToken && storedUser) {
@@ -44,7 +44,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (newToken: string, newUser: User) => {
     try {
-      await AsyncStorage.setItem('auth_token', newToken)
+      // Store the new token
+      await AsyncStorage.setItem('token', newToken)
       await AsyncStorage.setItem('auth_user', JSON.stringify(newUser))
       setToken(newToken)
       setUser(newUser)
@@ -56,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     try {
-      await AsyncStorage.removeItem('auth_token')
+      await AsyncStorage.removeItem('token')
       await AsyncStorage.removeItem('auth_user')
       setToken(null)
       setUser(null)

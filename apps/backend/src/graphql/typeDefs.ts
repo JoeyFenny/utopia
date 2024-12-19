@@ -54,10 +54,16 @@ const typeDefs = gql`
     isNewUser: Boolean!
   }
 
+  type UpdateResponse {
+    success: Boolean!
+    error: String
+    user: User
+  }
+
   type Mutation {
     createUserOrLoginUser(input: EmailInput!): AuthResponse!
     verifyCode(email: String!, code: String!): AuthPayload!
-    updateNotifications(enabled: Boolean!): User!
+    updateNotifications(enabled: Boolean!): UpdateResponse!
     createExperience(title: String!, description: String!, location: String!, imageUrl: String!): Experience!
     updateExperienceInteraction(experienceId: ID!, liked: Boolean!): ExperienceInteraction!
   }
