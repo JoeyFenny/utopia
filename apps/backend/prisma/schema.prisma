@@ -41,7 +41,7 @@ model ExperienceInteraction {
   user          User       @relation(fields: [userId], references: [id])
   experience    Experience @relation(fields: [experienceId], references: [id])
 
-  @@unique([userId, experienceId])
+  @@unique([userId, experienceId], name: "userId_experienceId")
 }
 
 model PrismaInfo {

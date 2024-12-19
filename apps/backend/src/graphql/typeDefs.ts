@@ -30,17 +30,18 @@ const typeDefs = gql`
     user: User!
     experienceId: String!
     experience: Experience!
-    liked: Boolean!
+    isInterested: Boolean!
     createdAt: Date!
-    updatedAt: Date!
   }
 
   type Experience {
     id: ID!
-    title: String!
-    description: String!
-    location: String!
-    imageUrl: String!
+    name: String!
+    bio: String!
+    cost: Float!
+    city: String!
+    date: Date!
+    carouselPhotos: [String!]!
     createdAt: Date!
     updatedAt: Date!
     interactions: [ExperienceInteraction!]!
@@ -50,6 +51,7 @@ const typeDefs = gql`
     me: User
     experiences: [Experience!]!
     experience(id: ID!): Experience
+    feedExperiences: [Experience!]!
   }
 
   type AuthResponse {
@@ -69,8 +71,8 @@ const typeDefs = gql`
     createUserOrLoginUser(input: EmailInput!): AuthResponse!
     verifyCode(input: VerifyCodeInput!): AuthPayload!
     updateNotifications(enabled: Boolean!): UpdateResponse!
-    createExperience(title: String!, description: String!, location: String!, imageUrl: String!): Experience!
-    updateExperienceInteraction(experienceId: ID!, liked: Boolean!): ExperienceInteraction!
+    createExperience(name: String!, bio: String!, cost: Float!, city: String!, date: Date!, carouselPhotos: [String!]!): Experience!
+    updateExperienceInteraction(experienceId: ID!, isInterested: Boolean!): ExperienceInteraction!
   }
 
   type AuthPayload {
