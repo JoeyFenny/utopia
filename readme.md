@@ -1,6 +1,6 @@
 # Utopia - Full Stack Cross-Platform App
 
-A modern, cross-platform application built with React Native, Next.js, and GraphQL. This monorepo contains all the necessary components for the mobile app (Expo), web app (Next.js), and backend server.
+A modern, cross-platform application built with React Native, Next.js, and GraphQL. This monorepo contains all the necessary components for the mobile app (Expo), web app (Next.js), and a backend server.
 
 ## 🏗 Project Structure
 
