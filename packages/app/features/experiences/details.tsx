@@ -3,6 +3,7 @@ import { Text } from 'app/design/typography'
 import { useRouter } from 'next/router';
 import { Pressable, ActivityIndicator, Image } from 'react-native'
 import { useQuery, gql } from '@apollo/client'
+import React from 'react';
 
 const GET_EXPERIENCE = gql`
   query GetExperience($id: ID!) {
@@ -21,6 +22,7 @@ const GET_EXPERIENCE = gql`
 export function ExperienceDetailsScreen() {
   const { query, back } = useRouter();
   const id = query?.id
+  const [isBooking, setIsBooking] = React.useState(false)
 
   const { data, loading, error } = useQuery(GET_EXPERIENCE, {
     variables: { id },
@@ -78,7 +80,7 @@ export function ExperienceDetailsScreen() {
         </View>
       )}
 
-      <View className="p-4">
+      <View className="p-4 pb-24">
         <View className="items-start">
           <Text className="text-white text-3xl font-normal">{experience.name}</Text>
           <View className="flex-row items-center mt-1 space-x-2">
@@ -92,8 +94,49 @@ export function ExperienceDetailsScreen() {
         
         <View className="mt-8 items-start">
           <Text className="text-white text-xl">About</Text>
-          <Text className="text-white/70 mt-2" style={{ textAlign: 'left' }}>{experience.bio}</Text>
+          <Text className="text-white/70 mt-2" style={{ textAlign: 'left' }}>
+          {experience.bio}
+          </Text>
         </View>
+      </View>
+
+      {/* Floating Book Button */}
+      <View style={{
+        position: 'absolute',
+        bottom: 24,
+        left: 24,
+        right: 24
+      }}>
+        <Pressable 
+          onPress={() => {
+            setIsBooking(true)
+            setTimeout(() => {
+              setIsBooking(false)
+            }, 400)
+          }} 
+          style={{
+            width: '100%',
+            backgroundColor: 'white',
+            borderRadius: 100,
+            paddingVertical: 16,
+            alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.3,
+            shadowRadius: 8,
+            elevation: 8
+          }}
+        >
+          {isBooking ? (
+            <ActivityIndicator color="black" />
+          ) : (
+            <Text style={{
+              color: 'black',
+              fontSize: 18,
+              fontWeight: '600'
+            }}>Book Experience</Text>
+          )}
+        </Pressable>
       </View>
     </View>
   )
