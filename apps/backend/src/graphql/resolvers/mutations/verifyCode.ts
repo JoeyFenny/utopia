@@ -9,15 +9,28 @@ export const verifyCodeSchema = gql`
     user: User!
   }
 
+  input VerifyCodeInput {
+    email: String!
+    code: String!
+  }
+
   extend type Mutation {
-    verifyCode(email: String!, code: String!): AuthPayload!
+    verifyCode(email: String, code: String, input: VerifyCodeInput): AuthPayload!
   }
 `;
 
 export const verifyCodeResolver = {
   Mutation: {
-    verifyCode: async (_: any, { email, code }: { email: string; code: string }, { prisma }: { prisma: PrismaClient }) => {
+    verifyCode: async (_: any, args: { email?: string; code?: string; input?: { email: string; code: string } }, { prisma }: { prisma: PrismaClient }) => {
       try {
+        // Handle both direct args and input object
+        const email = args.input?.email || args.email;
+        const code = args.input?.code || args.code;
+
+        if (!email || !code) {
+          throw new GraphQLError('Email and code are required');
+        }
+
         // Find user and check verification code
         const user = await prisma.user.findUnique({
           where: { email }

@@ -8,6 +8,11 @@ const typeDefs = gql`
     email: String!
   }
 
+  input VerifyCodeInput {
+    email: String!
+    code: String!
+  }
+
   type User {
     id: ID!
     email: String!
@@ -62,7 +67,7 @@ const typeDefs = gql`
 
   type Mutation {
     createUserOrLoginUser(input: EmailInput!): AuthResponse!
-    verifyCode(email: String!, code: String!): AuthPayload!
+    verifyCode(input: VerifyCodeInput!): AuthPayload!
     updateNotifications(enabled: Boolean!): UpdateResponse!
     createExperience(title: String!, description: String!, location: String!, imageUrl: String!): Experience!
     updateExperienceInteraction(experienceId: ID!, liked: Boolean!): ExperienceInteraction!

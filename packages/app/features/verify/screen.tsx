@@ -7,8 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useMutation, gql } from '@apollo/client'
 
 const VERIFY_CODE = gql`
-  mutation VerifyCode($email: String!, $code: String!) {
-    verifyCode(email: $email, code: $code) {
+  mutation VerifyCode($input: VerifyCodeInput!) {
+    verifyCode(input: $input) {
       token
       user {
         id
@@ -63,8 +63,10 @@ export function VerifyScreen() {
 
         const { data } = await verifyCode({
           variables: {
-            email,
-            code: finalCode
+            input: {
+              email,
+              code: finalCode
+            }
           }
         })
 
@@ -105,8 +107,10 @@ export function VerifyScreen() {
 
       const { data } = await verifyCode({
         variables: {
-          email,
-          code: finalCode
+          input: {
+            email,
+            code: finalCode
+          }
         }
       })
 
