@@ -28,6 +28,15 @@ input VerifyCodeInput {
   code: String!
 }
 
+input CreateExperienceInput {
+  name: String!
+  bio: String!
+  cost: Float!
+  city: String!
+  date: DateTime!
+  carouselPhotos: [String!]!
+}
+
 type AuthResponse {
   success: Boolean!
   error: String
@@ -53,6 +62,7 @@ type Mutation {
   verifyCode(input: VerifyCodeInput!): AuthResponse!
   updateNotifications(enabled: Boolean!): UpdateResponse!
   updateExperienceInteraction(experienceId: ID!, isInterested: Boolean!): Experience
+  createExperience(input: CreateExperienceInput!): Experience!
 }
 
 scalar DateTime

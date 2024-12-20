@@ -21,7 +21,7 @@ const CREATE_USER_OR_LOGIN = gql`
   }
 `
 
-const getResponsiveWidth = () => Platform.OS === 'web' ? '85%' : '100%'
+const getResponsiveWidth = () => Platform.OS === 'web' ? 500 : '100%'
 
 export function HomeScreen() {
   const [email, setEmail] = useState('')
@@ -60,7 +60,17 @@ export function HomeScreen() {
   }
 
   return (
-    <View className="flex-1 items-center justify-center p-3 bg-black">
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#000',
+        ...(Platform.OS === 'web' && {
+          paddingHorizontal: 16
+        })
+      }}
+    >
       <Image 
         source={Platform.select({
           web: { uri: '/logo.png' },
